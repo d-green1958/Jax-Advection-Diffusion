@@ -31,3 +31,26 @@ def advection(c, u, v, dx, dy):
     )
 
     return div_f
+
+
+def diffusion(c, D, dx, dy):
+    """
+    Computes 2D diffusion of c with diffusivity D
+
+    Args:
+        c : 2D array of concentration values at cell centres
+        D : Diffusivity constant
+        dx : size of x faces
+        dy : size of y faces
+
+    Returns:
+        2D Diffusive fluxes
+    """
+
+    c_left = jnp.roll(c, 1, axis=0)
+    c_right = jnp.roll(c, -1, axis=0)
+
+    c_down = jnp.roll(c, 1, axis=1)
+    c_up = jnp.roll(c, -1, axis=1)
+
+    return D * (c_left - 2*c + c_right) / dx**2 + D * (c_down - 2*c + c_up) / dy**2

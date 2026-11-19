@@ -1,5 +1,5 @@
 
-name: CI (test)
+name: CI
 
 on:
   push:
@@ -41,3 +41,25 @@ jobs:
 
       - name: Run tests
         run: python -m pytest
+        
+  lint:
+    name: Ruff
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Ruff
+        run: python -m pip install ruff
+
+      - name: Check linting
+        run: ruff check .
+
+      - name: Check formatting
+        run: ruff format --check .

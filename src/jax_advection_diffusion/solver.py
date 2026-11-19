@@ -1,7 +1,8 @@
-from jax_advection_diffusion.numerics import advection, diffusion
+from jax_advection_diffusion.numerics import rhs
+import jax
 import jax.numpy as jnp
 
-def forward_euler(c, u, v, D, dx, dy, dt, t_end, t_start=0.0):
+def step(c, u, v, D, dx, dy, dt):
     """
     Evolves c in time using 1st order forward euler scheme
 
@@ -13,17 +14,36 @@ def forward_euler(c, u, v, D, dx, dy, dt, t_end, t_start=0.0):
         dx : size of x faces
         dy : size of y faces
         dt : timestep
-        t_end : End time
-        t_start (optional): Start time. Defaults to 0.
 
     Returns:
-        t : Solution time
-        c : Concentration field 
+        c : Evolved concentration field 
     """
-    t = t_start
-    while (t < t_end):
-        c = c + dt*diffusion(c, D, dx, dy) - dt*advection(c, u, v, dx, dy)        
-        t += dt
-    return t, c
 
+    return  c + dt*rhs(c,u,v,D,dx,dy)    
 
+def simulate(c, u, v, D, dx, dy, dt, N):
+    """
+    Advances concentration field by N timesteps
+
+    Args:
+        c : Transported concentration
+        u : Horizontal velocity field
+        v : Vertical velocity field
+        D : Diffusivity
+        D : Diffusivity constant
+        dx : size of x faces
+        dy : size of y faces
+        dt : timestep
+        N : number of timesteps
+
+    Returns:
+        Final concentration field
+    """
+
+    def scan_func(c, _):
+        c_next = step(c, u, v, D, dx, dy, dt)
+        return c_next, None
+
+    c_final = jax.lax.scan(scan_func, c, None, length=N)
+
+    return c_final

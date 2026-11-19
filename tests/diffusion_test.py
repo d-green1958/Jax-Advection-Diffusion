@@ -1,11 +1,13 @@
 import jax
+
 jax.config.update("jax_enable_x64", True)
 
 import jax.numpy as jnp
-from jax_advection_diffusion.numerics import diffusion
-from jax_advection_diffusion.initial_conditions import gaussian
-
 from pytest import approx
+
+from jax_advection_diffusion.initial_conditions import gaussian
+from jax_advection_diffusion.numerics import diffusion
+
 
 def test_diffusion_conservation():
     # create uniform concentration and compute conservation of mass

@@ -1,8 +1,11 @@
 import jax
+
 jax.config.update("jax_enable_x64", True)
 
 import jax.numpy as jnp
+
 from jax_advection_diffusion.numerics import advection
+
 
 def test_advection_conservation():
     # create uniform concentration  and compute conservation of mass

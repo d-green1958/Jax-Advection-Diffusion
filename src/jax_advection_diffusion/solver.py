@@ -1,6 +1,7 @@
-from jax_advection_diffusion.numerics import rhs
 import jax
-import jax.numpy as jnp
+
+from jax_advection_diffusion.numerics import rhs
+
 
 def step(c, u, v, D, dx, dy, dt):
     """

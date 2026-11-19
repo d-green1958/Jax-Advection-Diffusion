@@ -1,5 +1,6 @@
 import jax.numpy as jnp
 
+
 def gaussian(x, y, amplitude, x0, y0, sigma):
     """Return a 2D Gaussian concentration field.
 

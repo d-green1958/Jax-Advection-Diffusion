@@ -1,7 +1,7 @@
 # Jax Scalar Advection Diffusion Solver
 A differential solver for 2D advection-diffusion problems written in Jax-Python.
 
-[![CI (pytest)](https://github.com/d-green1958/Jax-Advection-Diffusion/actions/workflows/python-app.yml/badge.svg?branch=dev&event=push)](https://github.com/d-green1958/Jax-Advection-Diffusion/actions/workflows/python-app.yml)
+[![CI (pytest)](https://github.com/d-green1958/Jax-Advection-Diffusion/actions/workflows/CI-action.yml/badge.svg?branch=dev&event=push)](https://github.com/d-green1958/Jax-Advection-Diffusion/actions/workflows/CI-action.yml)
 
 ## Background
 This package solves the advection-diffusion equation of a scalar $c$,

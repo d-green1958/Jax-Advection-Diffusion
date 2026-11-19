@@ -25,10 +25,9 @@ def advection(c, u, v, dx, dy):
     f_y = 0.5 * ((c + c_down) * v + (c_down - c) * jnp.abs(v))
 
     # sum fluxes
-    div_f = (
-        (jnp.roll(f_x, -1, axis=0) - f_x) / dx
-        + (jnp.roll(f_y, -1, axis=1) - f_y) / dy
-    )
+    div_f = (jnp.roll(f_x, -1, axis=0) - f_x) / dx + (
+        jnp.roll(f_y, -1, axis=1) - f_y
+    ) / dy
 
     return div_f
 
@@ -53,7 +52,7 @@ def diffusion(c, D, dx, dy):
     c_down = jnp.roll(c, 1, axis=1)
     c_up = jnp.roll(c, -1, axis=1)
 
-    return D * (c_left - 2*c + c_right) / dx**2 + D * (c_down - 2*c + c_up) / dy**2
+    return D * (c_left - 2 * c + c_right) / dx**2 + D * (c_down - 2 * c + c_up) / dy**2
 
 
 def rhs(c, u, v, D, dx, dy):
@@ -71,4 +70,4 @@ def rhs(c, u, v, D, dx, dy):
     Returns:
         2D residual of advection-diffusion equation
     """
-    return diffusion(c,D,dx,dy) - advection(c,u,v,dx,dy)
+    return diffusion(c, D, dx, dy) - advection(c, u, v, dx, dy)

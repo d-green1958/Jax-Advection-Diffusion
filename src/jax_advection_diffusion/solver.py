@@ -17,10 +17,11 @@ def step(c, u, v, D, dx, dy, dt):
         dt : timestep
 
     Returns:
-        c : Evolved concentration field 
+        c : Evolved concentration field
     """
 
-    return  c + dt*rhs(c,u,v,D,dx,dy)    
+    return c + dt * rhs(c, u, v, D, dx, dy)
+
 
 def simulate(c, u, v, D, dx, dy, dt, N):
     """

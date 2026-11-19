@@ -54,3 +54,21 @@ def diffusion(c, D, dx, dy):
     c_up = jnp.roll(c, -1, axis=1)
 
     return D * (c_left - 2*c + c_right) / dx**2 + D * (c_down - 2*c + c_up) / dy**2
+
+
+def rhs(c, u, v, D, dx, dy):
+    """
+    Computes right hand side of scalar advection-diffusion equation
+
+    Args:
+        c : 2D array of concentration values at cell centres
+        u : 2D array of x-velocities at cell faces
+        v : 2D array of y-velocities at cell faces
+        D : Diffusivity constant
+        dx : size of x faces
+        dy : size of y faces
+
+    Returns:
+        2D residual of advection-diffusion equation
+    """
+    return diffusion(c,D,dx,dy) - advection(c,u,v,dx,dy)
